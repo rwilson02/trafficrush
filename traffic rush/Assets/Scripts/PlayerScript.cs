@@ -44,11 +44,6 @@ public class PlayerScript : MonoBehaviour
         {
             ramming = true;
         }
-
-        if (timer >= 0)
-        {
-            timer -= Time.deltaTime;
-        }
     }
 
     private void FixedUpdate()
@@ -58,5 +53,10 @@ public class PlayerScript : MonoBehaviour
             Ram(moveDir);
         }
        else Move(moveDir);
+
+        if (timer >= 0)
+        {
+            timer -= Time.fixedDeltaTime;
+        }
     }
 }
