@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    public float hSpeed, vSpeed, rSpeed, timer;
-    public KeyCode ram;
+    public float hSpeed, vSpeed, rSpeed, dist = 0;
+   // public KeyCode ram;
     float horiz, vert;
     Vector2 moveDir;
-    int points = 0, dist = 0, totalScore = 0;
-    bool ramming = false;
+    int points = 0;
+    static int totalScore = 0, hp = 100;
+   // bool ramming = false;
     Rigidbody2D body;
 
     private void Start()
@@ -22,17 +23,6 @@ public class PlayerScript : MonoBehaviour
         body.velocity = new Vector2(dir.x * hSpeed, dir.y * vSpeed);
     }
 
-    void Ram(Vector2 dir)
-    {
-        timer = 0.5f;
-        while(timer >= 0)
-        {
-            print(timer);
-            body.velocity = dir * rSpeed;
-        }
-        ramming = false;
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -40,23 +30,12 @@ public class PlayerScript : MonoBehaviour
         vert = Input.GetAxis("Vertical");
         moveDir = new Vector2(horiz, vert);
 
-        if (Input.GetKeyDown(ram))
-        {
-            ramming = true;
-        }
+        dist += 10 * Time.deltaTime;
+        totalScore = Mathf.FloorToInt(dist + points);
     }
 
     private void FixedUpdate()
     {
-        if (ramming)
-        {
-            Ram(moveDir);
-        }
-       else Move(moveDir);
-
-        if (timer >= 0)
-        {
-            timer -= Time.fixedDeltaTime;
-        }
+        Move(moveDir);
     }
 }
