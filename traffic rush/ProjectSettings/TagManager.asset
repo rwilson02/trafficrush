@@ -6,6 +6,7 @@ TagManager:
   tags:
   - EnemyBullet
   - PlayerBullet
+  - Spawnpoint
   layers:
   - Default
   - TransparentFX
@@ -40,6 +41,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 19112379
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Atop
+    uniqueID: 942959747
     locked: 0
