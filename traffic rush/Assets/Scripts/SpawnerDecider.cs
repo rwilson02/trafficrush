@@ -9,6 +9,8 @@ public class SpawnerDecider : MonoBehaviour
     public Transform player;
     public readonly int spawnerNumber;
     int i, prev = -1;
+    float timer = 0;
+    public float spawnRate;
     List<float> distances;
 
     // Start is called before the first frame update
@@ -44,11 +46,16 @@ public class SpawnerDecider : MonoBehaviour
         }
         i = distances.FindIndex(Closest);
 
-        Debug.Log(new Vector2(i, prev));
-
         if (prev > -1) { trimmedSpawners[prev].gameObject.SetActive(true); }
         trimmedSpawners[i].gameObject.SetActive(false);
         if (prev != i) { prev = i; }
         distances.Clear();
+
+        timer += Time.deltaTime;
+        if(timer > spawnRate)
+        {
+            timer -= spawnRate;
+            trimmedSpawners[Random.Range(0, trimmedSpawners.Length)].GetComponent<Spawning>().Call();
+        }
     }
 }

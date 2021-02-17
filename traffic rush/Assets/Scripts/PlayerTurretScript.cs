@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerTurretScript : MonoBehaviour
 {
     private Camera cam;
-    private Vector2 thisPos, mousePos, diffPos;
+    private Vector2 diffPos;
     public GameObject tip, bullet;
     public float speed;
+    public AudioSource shoot;
+    public Collider2D player;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,9 @@ public class PlayerTurretScript : MonoBehaviour
         if (count.Length < 3)
         {
             GameObject clone = Instantiate(bullet, tip.transform.position, tip.transform.rotation);
+            Physics2D.IgnoreCollision(clone.GetComponent<Collider2D>(), player);
             clone.GetComponent<Rigidbody2D>().velocity = tip.transform.up * speed;
+            shoot.Play();
         }
     }
 
