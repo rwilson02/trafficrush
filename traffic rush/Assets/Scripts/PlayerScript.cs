@@ -8,10 +8,10 @@ public class PlayerScript : MonoBehaviour
    // public KeyCode ram;
     float horiz, vert;
     Vector2 moveDir;
-    static int points = 0;
-    public static int hp = 100, totalScore = 0;
+    static int points = 0, prev = 0;
+    public static int hp = 100, totalScore = 0, intermed;
     static float dist = 0;
-    public bool horizontal = false;
+    public bool horizontal = false, title = false;
     public GameObject explosion, gameOver;
     bool dmg = true;
    // bool ramming = false;
@@ -20,9 +20,20 @@ public class PlayerScript : MonoBehaviour
 
     private void Start()
     {
-        body = GetComponent<Rigidbody2D>();
-        hit = GetComponent<AudioSource>();
-        if (horizontal) { gameObject.transform.Rotate(0, 0, -90); } else gameObject.transform.Rotate(0,0,0);
+        if (title) { }
+        else
+        {
+            body = GetComponent<Rigidbody2D>();
+            hit = GetComponent<AudioSource>();
+            if (horizontal) { gameObject.transform.Rotate(0, 0, -90); } else gameObject.transform.Rotate(0, 0, 0);
+        }
+    }
+
+    public static void Refresh()
+    {
+        hp = 100;
+        points = 0;
+        dist = 0;
     }
 
     void Move(Vector2 dir)
@@ -35,8 +46,8 @@ public class PlayerScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.gameObject.CompareTag("EnemyBullet") && dmg){
-            StartCoroutine(Hurt(25));
+        if (collision.collider.gameObject.CompareTag("EnemyBullet")){
+            if (dmg) { StartCoroutine(Hurt(25)); }
             Destroy(collision.gameObject);
         } else if (collision.collider.gameObject.CompareTag("Enemy") && dmg)
         {
@@ -72,6 +83,7 @@ public class PlayerScript : MonoBehaviour
         horiz = Input.GetAxis("Horizontal");
         vert = Input.GetAxis("Vertical");
         moveDir = new Vector2(horiz, vert);
+        intermed = Mathf.FloorToInt(totalScore / 3000);
 
         dist += 10 * Time.deltaTime;
         totalScore = Mathf.FloorToInt(dist + points);
@@ -83,6 +95,21 @@ public class PlayerScript : MonoBehaviour
             gameOver.GetComponent<EventScript>().EndGame(1);
             print("bye");
             this.gameObject.SetActive(false);
+        }
+
+        if(intermed > 0 && prev != intermed%2)
+        {
+            if (intermed % 2 == 1)
+            {
+                gameOver.GetComponent<ChangeScene>().FancyChange("HORIZ");
+                prev = intermed % 2;
+            }
+            else { gameOver.GetComponent<ChangeScene>().FancyChange("VERT"); prev = intermed % 2; }
+            }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            points += 300;
         }
     }
 

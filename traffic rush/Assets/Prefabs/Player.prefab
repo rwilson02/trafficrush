@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3608212690384625696}
   - component: {fileID: 3608212690384625699}
   - component: {fileID: 3608212690384625697}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -212,7 +212,7 @@ GameObject:
   - component: {fileID: 3608212690693201893}
   - component: {fileID: 3608212690693201898}
   - component: {fileID: 3608212690693201897}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3608212691312502952}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}

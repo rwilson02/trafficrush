@@ -7,6 +7,7 @@ public class EventScript : MonoBehaviour
 {
     public Text msg, go;
     public Button back;
+    public Canvas c;
 
     public void EndGame(int cas)
     {

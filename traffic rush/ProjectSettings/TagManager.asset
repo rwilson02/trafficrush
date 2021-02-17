@@ -17,10 +17,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - bullets
+  - enemies
+  - player
+  - playerbullets
   - 
   - 
   - 

@@ -11,6 +11,11 @@ public class EnemyTurretScript : MonoBehaviour
     public Collider2D self;
     float timer = 0;
 
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
     void Shoot()
     {
         GameObject clone = Instantiate(bullet, tip.transform.position, tip.transform.rotation);
@@ -23,6 +28,7 @@ public class EnemyTurretScript : MonoBehaviour
     void Update()
     {
         diffPos = player.transform.position - this.transform.position;
+        print(diffPos);
 
         var angle = Mathf.Atan2(diffPos.y, diffPos.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
